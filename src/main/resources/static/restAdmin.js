@@ -1,5 +1,5 @@
 function fillUsersTable() {
-    fetch('http://localhost:8080/api/restUsers').then(
+    fetch('http://localhost:8080/api/restUsers/').then(
         response => {
             response.json().then(
                 data => {
@@ -28,7 +28,7 @@ function fillUsersTable() {
     )
 }
 function fillEditModal(userId) {
-    $.get("http://localhost:8080/api/restUsers" + userId, function (userJSON) {
+    $.get("http://localhost:8080/api/restUsers/" + userId, function (userJSON) {
         $('#idToEdit').val(userJSON.id);
         $('#nameToEdit').val(userJSON.name);
         $('#lastNameToEdit').val(userJSON.lastName);
@@ -39,7 +39,7 @@ function fillEditModal(userId) {
     });
 }
 function fillDeleteModal(userId) {
-    $.get("http://localhost:8080/api/restUsers/{id}" + userId, function (userJSON) {
+    $.get("http://localhost:8080/api/restUsers/" + userId, function (userJSON) {
         $('#idToDelete').val(userJSON.id);
         $('#nameToDelete').val(userJSON.name);
         $('#lastNameToDelete').val(userJSON.lastName);
@@ -54,13 +54,13 @@ function reloadNewUserTable(){
     $('#newLastName').val('');
     $('#newUserName').val('');
     $('#newPassword').val('');
-    $('#newRole').val('').map(role => role.value);
+    $("#New_ROLE_USER").prop('checked', false);
+    $("#New_ROLE_ADMIN").prop('checked', false);
 
 }
 
 
 $(function () {
-    $("#logout").append("<a class='custom-a' href='/logout'>Logout</a>");
     $('#addSubmit').on("click", function () {
         let checked = [];
         $('input:checkbox:checked').each(function () {
@@ -73,7 +73,7 @@ $(function () {
             password : $("#newPassword").val(),
             roles : checked
         };
-        fetch('http://localhost:8080/api/restUsers', {
+        fetch('http://localhost:8080/api/restUsers/', {
             method: "POST",
             credentials: 'same-origin',
             body: JSON.stringify(user),
@@ -88,7 +88,7 @@ $(function () {
         fillUsersTable()
     });
     $('#modalDeleteBtn').on("click", function () {
-        fetch('http://localhost:8080/api/restUsers/{id}'+ $('#idToDelete').val(), {
+        fetch('http://localhost:8080/api/restUsers/'+ $('#idToDelete').val(), {
             method: "DELETE",
             credentials: 'same-origin',
         });
@@ -110,7 +110,7 @@ $(function () {
             password : $("#passwordToEdit").val(),
             roles : checked
         };
-        fetch('http://localhost:8080/api/restUsers', {
+        fetch('http://localhost:8080/api/restUsers/', {
             method: "PUT",
             body: JSON.stringify(user),
             headers: {

@@ -64,7 +64,6 @@
                                                      aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content" >
-                                                            <input type='hidden' id='idToEditUser'>
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -76,6 +75,7 @@
                                                                     <label>ID
                                                                         <input type="text"
                                                                                class="form-control form-control-sm"
+                                                                               id="idToEdit"
                                                                                name="id"
                                                                                readonly="readonly">
                                                                     </label>
@@ -118,7 +118,7 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary" id="modalEditBtn" >Edit</button>
+                                                                <button type="submit" class="btn btn-primary" id="modalEditBtn" data-dismiss="modal">Edit</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -128,7 +128,6 @@
                                                      aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                            <input type='hidden' id="idToDelete">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title">Delete user</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -140,6 +139,7 @@
                                                                     <label>ID
                                                                         <input type="text"
                                                                                class="form-control form-control-sm"
+                                                                               id="idToDelete"
                                                                                readonly="readonly">
                                                                     </label>
                                                                     <br>
@@ -185,7 +185,7 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-danger" id="modalDeleteBtn">Delete</button>
+                                                                <button type="submit" class="btn btn-danger" id="modalDeleteBtn" data-dismiss="modal">Delete</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -290,6 +290,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script src="/restAdmin.js"></script>
+<script src="restAdmin.js"></script>
     </body>
 </html>

@@ -24,13 +24,13 @@ public class UsersRestController {
     @GetMapping("/restUsers")
     public ResponseEntity<List<User>> restListUsers(){
         List<User> users = userService.listUser();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        return users != null && !users.isEmpty() ? new ResponseEntity<>(users, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/restUsers/{id}")
     public ResponseEntity<User> restOneUser(@PathVariable long id){
         User user = userService.getUserById(id);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return user != null ? new ResponseEntity<>(user,HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/restUsers")
