@@ -78,7 +78,6 @@ $(function () {
             credentials: 'same-origin',
             body: JSON.stringify(user),
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         });
@@ -114,7 +113,6 @@ $(function () {
             method: "PUT",
             body: JSON.stringify(user),
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         });
