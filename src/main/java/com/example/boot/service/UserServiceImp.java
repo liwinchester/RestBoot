@@ -4,7 +4,6 @@ package com.example.boot.service;
 import com.example.boot.dao.UserDao;
 import com.example.boot.model.Role;
 import com.example.boot.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

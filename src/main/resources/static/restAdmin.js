@@ -20,8 +20,7 @@ function fillUsersTable() {
                             "    </td>"
                         temp += "</tr>";
                     })
-                    $("#usersTableHere").empty();
-                    $("#usersTableHere").append(temp);
+                    $("#usersTableHere").empty().append(temp);
                 }
             )
         }
@@ -54,24 +53,21 @@ function reloadNewUserTable(){
     $('#newLastName').val('');
     $('#newUserName').val('');
     $('#newPassword').val('');
-    $("#New_ROLE_USER").prop('checked', false);
-    $("#New_ROLE_ADMIN").prop('checked', false);
+    $("#ROLE_USER").prop('checked', false);
+    $("#ROLE_ADMIN").prop('checked', false);
 
 }
 
 
 $(function () {
     $('#addSubmit').on("click", function () {
-        let checked = [];
-        $('input:checkbox:checked').each(function () {
-            checked.push($(this).val());
-        });
+
         let user = {
             name : $("#newName").val(),
             lastName : $("#newLastName").val(),
             userName : $("#newUserName").val(),
             password : $("#newPassword").val(),
-            roles : checked
+            roles : $("#newRoles").val(),
         };
         fetch('http://localhost:8080/api/restUsers/', {
             method: "POST",
@@ -96,10 +92,6 @@ $(function () {
         fillUsersTable();
     });
     $('#modalEditBtn').on("click", function () {
-        let checked = [];
-        $('input:checkbox:checked').each(function () {
-            checked.push($(this).val());
-        });
 
         let user = {
             id : $('#idToEdit').val(),
@@ -107,7 +99,7 @@ $(function () {
             lastName : $("#lastNameToEdit").val(),
             userName : $("#userNameToEdit").val(),
             password : $("#passwordToEdit").val(),
-            roles : checked
+            roles : $("#newRoles").val().selectedOptions,
         };
         fetch('http://localhost:8080/api/restUsers/', {
             method: "PUT",
