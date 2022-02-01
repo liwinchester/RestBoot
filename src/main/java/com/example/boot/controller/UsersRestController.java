@@ -28,25 +28,25 @@ public class UsersRestController {
     }
 
     @GetMapping("/restUsers/{id}")
-    public ResponseEntity<User> restOneUser(@PathVariable long id){
+    public ResponseEntity<User> restOneUser(@PathVariable(name = "id")  long id){
         User user = userService.getUserById(id);
         return user != null ? new ResponseEntity<>(user,HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/restUsers")
-    public ResponseEntity<User> newUser(@RequestBody User user, String[] roleNames) {
+    public ResponseEntity<User> newUser(@RequestBody User user, @RequestParam String[] roleNames) {
         userService.addUser(user, roleNames);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/restUsers")
-    public ResponseEntity<User>  updateUser(@RequestBody User user, String[] roleNames) {
+    public ResponseEntity<User> updateUser(@RequestBody User user, @RequestParam String[] roleNames) {
         userService.updateUser(user, roleNames);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/restUsers/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable long id) {
+    public ResponseEntity<User> deleteUser(@PathVariable(name = "id")  long id) {
         userService.removeUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

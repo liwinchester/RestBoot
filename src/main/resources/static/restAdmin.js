@@ -1,5 +1,5 @@
 function fillUsersTable() {
-    fetch('http://localhost:8080/api/restUsers/').then(
+    fetch("http://localhost:8080/api/restUsers").then(
         response => {
             response.json().then(
                 data => {
@@ -20,7 +20,8 @@ function fillUsersTable() {
                             "    </td>"
                         temp += "</tr>";
                     })
-                    $("#usersTableHere").empty().append(temp);
+                    $("#usersTableHere").empty();
+                    $("#usersTableHere").append(temp);
                 }
             )
         }
@@ -33,7 +34,8 @@ function fillEditModal(userId) {
         $('#lastNameToEdit').val(userJSON.lastName);
         $('#userNameToEdit').val(userJSON.userName);
         $('#passwordToEdit').val(userJSON.password);
-        $('#roleToEdit').val(userJSON.rolesForTable);
+        $('#rolesToEdit').val(userJSON.rolesForTable);
+
 
     });
 }
@@ -44,74 +46,71 @@ function fillDeleteModal(userId) {
         $('#lastNameToDelete').val(userJSON.lastName);
         $('#userNameToDelete').val(userJSON.userName);
         $('#passwordToDelete').val(userJSON.password);
-        $('#roleToDelete').val(userJSON.rolesForTable);
+        $('#rolesToDelete').val(userJSON.rolesForTable);
     });
 }
 function reloadNewUserTable(){
-
     $('#newName').val('');
     $('#newLastName').val('');
     $('#newUserName').val('');
     $('#newPassword').val('');
-    $("#ROLE_USER").prop('checked', false);
-    $("#ROLE_ADMIN").prop('checked', false);
-
+    $('#newRoles').val('');
 }
-
-
 $(function () {
     $('#addSubmit').on("click", function () {
-
         let user = {
             name : $("#newName").val(),
             lastName : $("#newLastName").val(),
             userName : $("#newUserName").val(),
             password : $("#newPassword").val(),
-            roles : $("#newRoles").val(),
+            roleNames : $("#newRoles").val(),
         };
-        fetch('http://localhost:8080/api/restUsers/', {
+        fetch("http://localhost:8080/api/restUsers", {
             method: "POST",
             credentials: 'same-origin',
             body: JSON.stringify(user),
             headers: {
                 'Content-Type': 'application/json'
             }
+        }).then( () => {
+            fillUsersTable();
+            alert("Новый юзер добавлен")
+            reloadNewUserTable();
+            fillUsersTable()
         });
-        fillUsersTable();
-        alert("Новый юзер добавлен")
-        reloadNewUserTable();
-        fillUsersTable()
     });
     $('#modalDeleteBtn').on("click", function () {
-        fetch('http://localhost:8080/api/restUsers/'+ $('#idToDelete').val(), {
+        fetch("http://localhost:8080/api/restUsers/"+ $('#idToDelete').val(), {
             method: "DELETE",
             credentials: 'same-origin',
+        }).then( () => {
+            fillUsersTable();
+            alert("Удален")
+            fillUsersTable();
         });
-        fillUsersTable();
-        alert("Удален")
-        fillUsersTable();
     });
     $('#modalEditBtn').on("click", function () {
-
         let user = {
             id : $('#idToEdit').val(),
             name : $("#nameToEdit").val(),
             lastName : $("#lastNameToEdit").val(),
             userName : $("#userNameToEdit").val(),
             password : $("#passwordToEdit").val(),
-            roles : $("#newRoles").val().selectedOptions,
+            roleNames : $('#rolesToEdit').val(),
         };
-        fetch('http://localhost:8080/api/restUsers/', {
+        fetch("http://localhost:8080/api/restUsers", {
             method: "PUT",
             body: JSON.stringify(user),
             headers: {
                 'Content-Type': 'application/json'
             }
+        }).then( () => {
+            fillUsersTable();
+            alert("Отредактирован")
+            fillUsersTable();
+            reloadNewUserTable();
         });
-        fillUsersTable();
-        alert("Отредактирован")
-        fillUsersTable();
-        reloadNewUserTable();
+
     });
 });
 fillUsersTable();

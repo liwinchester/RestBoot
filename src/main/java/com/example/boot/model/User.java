@@ -1,7 +1,9 @@
 package com.example.boot.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -62,7 +64,6 @@ public class User implements UserDetails {
       this.roles = roles;
    }
 
-   @JsonIgnore
    @Override
    public Collection<? extends GrantedAuthority> getAuthorities() {
       return roles;
