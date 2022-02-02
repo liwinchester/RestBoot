@@ -20,8 +20,7 @@ function fillUsersTable() {
                             "    </td>"
                         temp += "</tr>";
                     })
-                    $("#usersTableHere").empty();
-                    $("#usersTableHere").append(temp);
+                    $("#usersTableHere").empty().append(temp);
                 }
             )
         }
@@ -59,13 +58,14 @@ function reloadNewUserTable(){
 $(function () {
     $('#addSubmit').on("click", function () {
         let user = {
-            name : $("#newName").val(),
-            lastName : $("#newLastName").val(),
-            userName : $("#newUserName").val(),
-            password : $("#newPassword").val(),
-            roleNames : $("#newRoles").val(),
+            name: $("#newName").val(),
+            lastName: $("#newLastName").val(),
+            userName: $("#newUserName").val(),
+            password: $("#newPassword").val(),
         };
-        fetch("http://localhost:8080/api/restUsers", {
+        let roleNames = $("#newRoles").val();
+
+        fetch("http://localhost:8080/api/restUsers?roleNames=" + roleNames, {
             method: "POST",
             credentials: 'same-origin',
             body: JSON.stringify(user),
@@ -84,9 +84,9 @@ $(function () {
             method: "DELETE",
             credentials: 'same-origin',
         }).then( () => {
-            fillUsersTable();
-            alert("Удален")
-            fillUsersTable();
+        fillUsersTable();
+        alert("Удален")
+        fillUsersTable();
         });
     });
     $('#modalEditBtn').on("click", function () {
@@ -96,9 +96,9 @@ $(function () {
             lastName : $("#lastNameToEdit").val(),
             userName : $("#userNameToEdit").val(),
             password : $("#passwordToEdit").val(),
-            roleNames : $('#rolesToEdit').val(),
         };
-        fetch("http://localhost:8080/api/restUsers", {
+        let roleNames = $("#rolesToEdit").val();
+        fetch("http://localhost:8080/api/restUsers?roleNames=" + roleNames, {
             method: "PUT",
             body: JSON.stringify(user),
             headers: {
