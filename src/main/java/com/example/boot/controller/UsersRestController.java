@@ -34,14 +34,14 @@ public class UsersRestController {
     }
 
     @PostMapping("/restUsers")
-    public ResponseEntity<User> newUser(@RequestBody User user, @RequestParam String[] roleNames) {
-        userService.addUser(user, roleNames);
+    public ResponseEntity<User> newUser(@RequestBody User user, @RequestParam String[] roleIds) {
+        userService.addUser(user, roleIds);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/restUsers")
-    public ResponseEntity<User> updateUser(@RequestBody User user, @RequestParam String[] roleNames) {
-        userService.updateUser(user, roleNames);
+    public ResponseEntity<User> updateUser(@RequestBody User user, @RequestParam String[] roleIds) {
+        userService.updateUser(user, roleIds);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -19,17 +19,6 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@GetMapping("/admin")
-	public String listUsers(Model model){
-		model.addAttribute("listUsers", userService.listUser());
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("userInfo", user);
-		model.addAttribute("user", new User());
-		model.addAttribute("roles", user.getRolesForTable());
-
-		return "users";
-	}
-
 	@GetMapping("/user")
 	public String userInfo(Model model){
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

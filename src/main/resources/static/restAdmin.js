@@ -63,9 +63,9 @@ $(function () {
             userName: $("#newUserName").val(),
             password: $("#newPassword").val(),
         };
-        let roleNames = $("#newRoles").val();
+        let roleIds = $("#newRoles").val();
 
-        fetch("http://localhost:8080/api/restUsers?roleNames=" + roleNames, {
+        fetch("http://localhost:8080/api/restUsers?roleIds=" + roleIds, {
             method: "POST",
             credentials: 'same-origin',
             body: JSON.stringify(user),
@@ -97,8 +97,8 @@ $(function () {
             userName : $("#userNameToEdit").val(),
             password : $("#passwordToEdit").val(),
         };
-        let roleNames = $("#rolesToEdit").val();
-        fetch("http://localhost:8080/api/restUsers?roleNames=" + roleNames, {
+        let roleIds = $("#rolesToEdit").val();
+        fetch("http://localhost:8080/api/restUsers?roleIds=" + roleIds, {
             method: "PUT",
             body: JSON.stringify(user),
             headers: {

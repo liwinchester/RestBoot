@@ -19,5 +19,5 @@ public interface UserDao {
 
    User getUserByName(String userName);
 
-   Role getRoleByName(String name);
+   Role getRoleById(long id);
 }

@@ -13,33 +13,32 @@ import java.util.Set;
 
 
 @Service
-public class UserServiceImp implements UserService {
+public class UserServiceImpl implements UserService {
 
    private final UserDao userDao;
 
-   UserServiceImp(UserDao userDao){
+   UserServiceImpl(UserDao userDao){
       this.userDao = userDao;
    }
 
    @Transactional
    @Override
-   public User addUser(User user, String[] roleNames) {
+   public User addUser(User user, String[] roleIds) {
       Set<Role> rolesSet = new HashSet<>();
-      for (String name: roleNames) {
-         rolesSet.add(userDao.getRoleByName(name));
+      for (String id: roleIds) {
+         rolesSet.add(userDao.getRoleById(Long.parseLong(id)));
       }
       user.setRoles(rolesSet);
-      System.out.println(user);
       userDao.addUser(user);
       return user;
    }
 
    @Transactional
    @Override
-   public User updateUser(User user, String[] roleNames) {
+   public User updateUser(User user, String[] roleIds) {
       Set<Role> rolesSet = new HashSet<>();
-      for (String name: roleNames) {
-         rolesSet.add(userDao.getRoleByName(name));
+      for (String id: roleIds) {
+         rolesSet.add(userDao.getRoleById(Long.parseLong(id)));
       }
       user.setRoles(rolesSet);
       userDao.updateUser(user);
@@ -70,13 +69,15 @@ public class UserServiceImp implements UserService {
       return userDao.listRoles();
    }
 
+   @Transactional
    @Override
    public User getUserByName(String userName) {
       return userDao.getUserByName(userName);
    }
 
+   @Transactional
    @Override
-   public Role getRoleByName(String name) {
-      return userDao.getRoleByName(name);
+   public Role getRoleById(long id) {
+      return userDao.getRoleById(id);
    }
 }

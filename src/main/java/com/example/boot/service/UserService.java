@@ -20,6 +20,6 @@ public interface UserService {
 
     User getUserByName(String userName);
 
-    Role getRoleByName(String name);
+    Role getRoleById(long id);
 
 }

@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class UserDaoImp implements UserDao {
+public class UserDaoImpl implements UserDao {
 
    @PersistenceContext
    private EntityManager em;
@@ -51,7 +51,7 @@ public class UserDaoImp implements UserDao {
    }
 
    @Override
-   public Role getRoleByName(String name) {
-      return em.createQuery("select r from Role r where r.role=:rolename", Role.class).setParameter("rolename", name).getSingleResult();
+   public Role getRoleById(long id) {
+      return (Role) em.find(Role.class, id);
    }
 }
